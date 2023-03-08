@@ -7,23 +7,11 @@ import { getMainPackageJson } from "./utils.mjs";
 const run = async (outDir: string) => {
   await fs.rm(outDir, { recursive: true, force: true });
 
-  await build({
-    outDir,
-    minify: false,
-    entry: ["src/index.ts"],
-    splitting: true,
-    sourcemap: true,
-    clean: false,
-    target: "es2020",
-    treeshake: { preset: "smallest" },
-    dts: false,
-    format: ["cjs", "esm"],
-    platform: "browser",
-  });
+  const entry = ["src/index.ts"];
 
   if (
     ts
-      .createProgram(["src/index.ts"], {
+      .createProgram(entry, {
         emitDeclarationOnly: true,
         declaration: true,
         stripInternal: true,
@@ -46,6 +34,20 @@ const run = async (outDir: string) => {
       await fs.rm(path);
     }
   }
+
+  await build({
+    outDir,
+    minify: false,
+    entry,
+    splitting: true,
+    sourcemap: true,
+    clean: false,
+    target: "es2020",
+    treeshake: { preset: "smallest" },
+    dts: false,
+    format: ["cjs", "esm"],
+    platform: "browser",
+  });
 
   await fs.writeFile(`${outDir}/package.json`, await getMainPackageJson());
 
