@@ -50,7 +50,7 @@ const useMarkerCluster = <P>(
 };
 
 /**
- * If {@link UseMarkerClusterOptions.asyncMode asyncMode} was set, use this method to abandon {@link MarkerCluster.worker worker} if it needed
+ * If {@link UseMarkerClusterOptions.asyncMode asyncMode} has been set, use this method to abandon the {@link MarkerCluster.worker worker} if necessary
  */
 useMarkerCluster.cleanup = () => {
   MarkerCluster.cleanup();
