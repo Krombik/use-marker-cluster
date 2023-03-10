@@ -6,3 +6,6 @@ export const useConst = <T>(getValue: () => T) => {
 
   return r.current || (r.current = getValue());
 };
+
+/** @internal */
+export function noop() {}

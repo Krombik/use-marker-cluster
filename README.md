@@ -68,14 +68,15 @@ Returns [MarkerCluster](https://github.com/Krombik/marker-cluster#class-markercl
 
 #### UseMarkerClusterOptions
 
-| Name         | Type         | Description                                                                                 | Default |
-| :----------- | :----------- | :------------------------------------------------------------------------------------------ | :------ |
-| `asyncMode?` | `boolean`    | if `true`, the clustering process will be moved to another thread and will not block the UI | `false` |
-| `minZoom?`   | `number`     | min zoom level to cluster the points on                                                     | `0`     |
-| `maxZoom?`   | `number`     | max zoom level to cluster the points on                                                     | `16`    |
-| `radius?`    | `number`     | cluster radius in pixels                                                                    | `60`    |
-| `extent?`    | `number`     | size of the tile grid used for clustering                                                   | `256`   |
-| `callback?`  | `() => void` | method to be executed after clustering                                                      |         |
+| Name         | Type           | Description                                                                                                                                             | Default |
+| :----------- | :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------ | :------ |
+| `asyncMode?` | `boolean`      | if `true`, the clustering process will be moved to another thread and will not block the UI                                                             | `false` |
+| `minZoom?`   | `number`       | min zoom level to cluster the points on                                                                                                                 | `0`     |
+| `maxZoom?`   | `number`       | max zoom level to cluster the points on                                                                                                                 | `16`    |
+| `radius?`    | `number`       | cluster radius in pixels                                                                                                                                | `60`    |
+| `extent?`    | `number`       | size of the tile grid used for clustering                                                                                                               | `256`   |
+| `callback?`  | `()` => `void` | a method that will be executed after clustering or called from [MarkerCluster](https://github.com/Krombik/marker-cluster#class-markerclustert) instance |         |
+| `onLoaded?`  | `()` => `void` | a method that will be executed only after the clustering is completed                                                                                   |         |
 
 ---
 

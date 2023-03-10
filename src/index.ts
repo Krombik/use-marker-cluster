@@ -5,13 +5,17 @@ import MarkerCluster, {
   MarkerClusterOptions,
 } from "marker-cluster";
 import { useEffect, useState } from "react";
-import { useConst } from "./utils";
+import { noop, useConst } from "./utils";
 
 export type UseMarkerClusterOptions = MarkerClusterOptions & {
   /**
    * if `true`, the {@link MarkerCluster.loadAsync loadAsync} method will be used for clustering, otherwise {@link MarkerCluster.load load}
    */
   asyncMode?: boolean;
+  /**
+   * a method that will be executed only after the clustering is completed
+   */
+  onLoaded?(): void;
 };
 
 export type { Coords, MarkerMapper, ClusterMapper };
@@ -43,8 +47,18 @@ const useMarkerCluster = <P>(
   });
 
   useEffect(() => {
-    markerCluster[options && options.asyncMode ? "loadAsync" : "load"](points);
+    const onLoaded = (options && options.onLoaded) || noop;
+
+    if (options && options.asyncMode) {
+      markerCluster.loadAsync(points).then(onLoaded);
+    } else {
+      markerCluster.load(points);
+
+      onLoaded();
+    }
   }, [points]);
+
+  markerCluster.isLoading = points !== markerCluster.points;
 
   return markerCluster;
 };
