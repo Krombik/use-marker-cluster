@@ -2,7 +2,7 @@ import fs from "fs/promises";
 
 const pickFrom = (obj: Record<string, any>, keys: string[]) =>
   keys.reduce<Record<string, any>>(
-    (acc, key) => ({ ...acc, [key]: obj[key] }),
+    (acc, key) => (obj[key] !== undefined ? { ...acc, [key]: obj[key] } : {}),
     {}
   );
 

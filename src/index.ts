@@ -1,11 +1,13 @@
+import noop from "lodash.noop";
 import MarkerCluster, {
   Coords,
   MarkerMapper,
   ClusterMapper,
   MarkerClusterOptions,
 } from "marker-cluster";
-import { useEffect, useState } from "react";
-import { noop, useConst } from "./utils";
+import { useEffect } from "react";
+import useConst from "react-helpful-utils/useConst";
+import useForceRerender from "react-helpful-utils/useForceRerender";
 
 export type UseMarkerClusterOptions = MarkerClusterOptions & {
   /**
@@ -30,7 +32,7 @@ const useMarkerCluster = <P>(
   getLngLat: (item: P) => Coords,
   options?: UseMarkerClusterOptions
 ) => {
-  const forceUpdate = useState<{}>()[1];
+  const forceUpdate = useForceRerender();
 
   const markerCluster = useConst(() => {
     const markerCluster = new MarkerCluster(getLngLat, options);
@@ -40,7 +42,7 @@ const useMarkerCluster = <P>(
     markerCluster.callback = () => {
       parentCb();
 
-      forceUpdate({});
+      forceUpdate();
     };
 
     return markerCluster;
